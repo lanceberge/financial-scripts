@@ -6,14 +6,14 @@ import pandas as pd
 import argparse
 from datetime import datetime, timedelta
 
-tickers = "AMZN META GAMB MU HOOD JD BABA BIDU COIN"
+from tickers import tickers
 
 
 def parse_arguments():
     parser = argparse.ArgumentParser(
         description="Calculate correlation matrix of asset returns."
     )
-    parser.add_argument("--tickers", default=tickers, help="Tickers to add")
+    parser.add_argument("--tickers", help="Tickers to add")
     parser.add_argument(
         "--timerange", type=int, default=5, help="Number of years for historical data"
     )
@@ -75,9 +75,9 @@ def highlight_top_and_bottom_correlations(correlation_matrix):
 def main():
     args = parse_arguments()
     years = args.timerange
-    tickers = args.tickers.split()
+    ticker_list = args.tickers.split() if args.tickers else tickers
 
-    if len(tickers) < 2:
+    if len(ticker_list) < 2:
         print("Please provide at least two ticker symbols.")
         sys.exit(1)
 
@@ -85,7 +85,7 @@ def main():
         print("Timerange must be a positive number of years.")
         sys.exit(1)
 
-    correlation_matrix = get_correlation_matrix(tickers, years)
+    correlation_matrix = get_correlation_matrix(ticker_list, years)
     highlight_top_and_bottom_correlations(correlation_matrix)
 
 

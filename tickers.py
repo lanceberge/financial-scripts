@@ -1,0 +1,16 @@
+tickers = [
+    "AMZN",
+    "META",
+    "GAMB",
+    "HOOD",
+    "COIN",
+    "GOOGL",
+    "GLD",
+    "NET",
+    "QQQ",
+    "TSLA",
+    "WMT",
+    "JD",
+    "BIDU",
+    "BABA",
+]
