@@ -39,14 +39,15 @@ def get_insider_buying(tickers, days_back):
 
             if not buy_transactions.empty:
                 filtered_buys = buy_transactions[
-                    ["Start Date", "Insider", "Position"]
+                    ["Start Date", "Insider", "Position", "Value"]
                 ].copy()
 
-                filtered_buys["Avg. Price"] = (
-                    (buy_transactions["Value"] / buy_transactions["Shares"])
-                    .round(2)
-                    .apply(lambda x: f"{x:.2f}")
+                filtered_buys["Value"] = (
+                    filtered_buys["Value"].apply(lambda x: f"{int(x):,}").round(0)
                 )
+                filtered_buys["Avg. Price"] = (
+                    buy_transactions["Value"] / buy_transactions["Shares"]
+                ).round(2)
 
                 insider_buys[ticker] = filtered_buys
 
